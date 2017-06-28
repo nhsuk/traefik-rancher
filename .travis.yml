@@ -1,3 +1,4 @@
+services: docker
 
 script:
   - bash ./scripts/ci-deployment/deploy.sh
