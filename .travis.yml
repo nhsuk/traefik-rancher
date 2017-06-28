@@ -1,0 +1,3 @@
+
+script:
+  - bash ./scripts/ci-deployment/deploy.sh

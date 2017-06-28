@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  traefik:
+    image: nhsuk/traefik-rancher:${DOCKER_IMAGE_TAG}
+    ports:
+      - 80:80
+      - 8000:8080
+      - 443:443
+    environment:
+      RANCHER_SERVER: $RANCHER_SERVER
+      RANCHER_ACCESS_KEY: $RANCHER_ACCESS_KEY
+      RANCHER_SECRET_KEY: $RANCHER_SECRET_KEY
+      DEFAULT_DOMAIN: $DEFAULT_DOMAIN
