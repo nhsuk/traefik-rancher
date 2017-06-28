@@ -6,4 +6,4 @@ COPY docker-entrypoint.sh /
 
 ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
 
-CMD ["/traefik"]
+CMD ["/usr/local/bin/traefik"]
