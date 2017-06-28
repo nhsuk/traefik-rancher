@@ -1,4 +1,4 @@
-FROM traefik:alpine
+FROM traefik:1.3-alpine
 
 COPY traefik.toml /etc/traefik/traefik.toml
 
