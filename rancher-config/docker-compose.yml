@@ -21,4 +21,4 @@ services:
         splunk-sourcetype: docker
         splunk-source: rancher-traefik
         splunk-verify-connection: "false"
-
+        tag: "{{`{{.ImageName}} {{.Name}} {{.FullID}}`}}"
