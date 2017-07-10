@@ -12,13 +12,3 @@ services:
       RANCHER_ACCESS_KEY: $RANCHER_ACCESS_KEY
       RANCHER_SECRET_KEY: $RANCHER_SECRET_KEY
       DEFAULT_DOMAIN: $DEFAULT_DOMAIN
-    logging:
-      driver: splunk
-      options:
-        splunk-url: ${SPLUNK_HEC_URL}
-        splunk-token: ${SPLUNK_HEC_TOKEN}
-        splunk-insecureskipverify: "true"
-        splunk-sourcetype: docker
-        splunk-source: rancher-traefik
-        splunk-verify-connection: "false"
-
