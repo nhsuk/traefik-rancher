@@ -4,11 +4,26 @@ services:
   traefik:
     image: nhsuk/traefik-rancher:${DOCKER_IMAGE_TAG}
     ports:
-      - 80:80
-      - 8000:8080
-      - 443:443
+      - 8000:8080/tcp
     environment:
       RANCHER_SERVER: $RANCHER_SERVER
       RANCHER_ACCESS_KEY: $RANCHER_ACCESS_KEY
       RANCHER_SECRET_KEY: $RANCHER_SECRET_KEY
       DEFAULT_DOMAIN: $DEFAULT_DOMAIN
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: 'true'
+  http-https-redirect:
+    image: nhsuk/docker-nginx-https-redirect:1.0.0
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: 'true'
+  https:
+    image: rancher/lb-service-haproxy:v0.6.4
+    ports:
+    - 443:443/tcp
+    - 80:80/tcp
+    labels:
+      io.rancher.container.agent.role: environmentAdmin
+      io.rancher.container.create_agent: 'true'
+      io.rancher.scheduler.global: 'true'
