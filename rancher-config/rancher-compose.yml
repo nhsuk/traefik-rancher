@@ -1,33 +1,14 @@
 version: '2'
 
 services:
+
   traefik:
     start_on_create: true
-  http-https-redirect:
-    start_on_create: true
-  https:
-    start_on_create: true
-    lb_config:
-      certs: []
-      default_cert: $DEFAULT_SSL_CERT
-      port_rules:
-      - hostname: ''
-        path: ''
-        priority: 1
-        protocol: https
-        service: traefik
-        source_port: 443
-        target_port: 80
-      - path: ''
-        priority: 2
-        protocol: http
-        service: http-https-redirect
-        source_port: 80
-        target_port: 80
     health_check:
       healthy_threshold: 2
       response_timeout: 2000
-      port: 42
+      request_line: GET /ping HTTP/1.0
+      port: 8000
       unhealthy_threshold: 3
       initializing_timeout: 60000
       interval: 2000
