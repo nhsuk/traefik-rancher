@@ -45,10 +45,11 @@ cat << EOF > ${SERVICE_HOME}/etc/traefik.toml
 debug = ${TRAEFIK_DEBUG}
 logLevel = "${TRAEFIK_LOG_LEVEL}"
 
+defaultEntryPoints = [${TRAEFIK_ENTRYPOINTS}]
+
 [accessLog]
 format = "json"
 
-defaultEntryPoints = [${TRAEFIK_ENTRYPOINTS}]
 
 [entryPoints]
 ${TRAEFIK_ENTRYPOINTS_OPTS}
