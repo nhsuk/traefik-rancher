@@ -5,14 +5,8 @@ TRAEFIK_HTTPS_ENABLE=${TRAEFIK_HTTPS_ENABLE:-"true"}
 TRAEFIK_HTTPS_PORT=${TRAEFIK_HTTPS_PORT:-"443"}
 TRAEFIK_ADMIN_PORT=${TRAEFIK_ADMIN_PORT:-"8000"}
 TRAEFIK_DEBUG=${TRAEFIK_DEBUG:="false"}
-TRAEFIK_LOG_LEVEL=${TRAEFIK_LOG_LEVEL:-"INFO"}
-TRAEFIK_LOG_FILE=${TRAEFIK_LOG_FILE:-"${SERVICE_HOME}/log/traefik.log"}
-TRAEFIK_ACCESS_FILE=${TRAEFIK_ACCESS_FILE:-"${SERVICE_HOME}/log/access.log"}
+TRAEFIK_LOG_LEVEL=${TRAEFIK_LOG_LEVEL:-"WARN"}
 TRAEFIK_SSL_PATH=${TRAEFIK_SSL_PATH:-"${SERVICE_HOME}/certs"}
-TRAEFIK_RANCHER_ENDPOINT=${TRAEFIK_RANCHER_ENDPOINT}
-TRAEFIK_RANCHER_DOMAIN=${TRAEFIK_RANCHER_DOMAIN}
-TRAEFIK_RANCHER_ACCESS_KEY=${TRAEFIK_RANCHER_ACCESS_KEY}
-TRAEFIK_RANCHER_SECRET_KEY=${TRAEFIK_RANCHER_SECRET_KEY}
 
 TRAEFIK_ENTRYPOINTS_HTTP="\
   [entryPoints.http]
@@ -50,11 +44,12 @@ cat << EOF > ${SERVICE_HOME}/etc/traefik.toml
 # traefik.toml
 debug = ${TRAEFIK_DEBUG}
 logLevel = "${TRAEFIK_LOG_LEVEL}"
-traefikLogsFile = "${TRAEFIK_LOG_FILE}"
-accessLogsFile = "${TRAEFIK_ACCESS_FILE}"
-
 
 defaultEntryPoints = [${TRAEFIK_ENTRYPOINTS}]
+
+[accessLog]
+format = "json"
+
 
 [entryPoints]
 ${TRAEFIK_ENTRYPOINTS_OPTS}
@@ -66,7 +61,7 @@ address = ":${TRAEFIK_ADMIN_PORT}"
 [web.metrics.prometheus]
   Buckets=[0.1,0.3,1.2,5.0]
 
-ReadOnly = false
+ReadOnly = true
 
 [web.statistics]
   RecentErrors = 10
@@ -75,11 +70,9 @@ ReadOnly = false
 [rancher]
 domain = "${TRAEFIK_RANCHER_DOMAIN}"
 Watch = true
-Endpoint = "${TRAEFIK_RANCHER_ENDPOINT}"
-AccessKey = "${TRAEFIK_RANCHER_ACCESS_KEY}"
-SecretKey = "${TRAEFIK_RANCHER_SECRET_KEY}"
-
 ExposedByDefault = false
 EnableServiceHealthFilter = false
+
+[rancher.metadata]
 
 EOF

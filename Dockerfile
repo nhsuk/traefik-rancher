@@ -3,7 +3,7 @@ FROM alpine:3.5
 # Set environment
 ENV SERVICE_NAME=traefik \
     SERVICE_HOME=/opt/traefik \
-    SERVICE_VERSION=v1.3.5 \
+    SERVICE_VERSION=v1.4.0-rc1 \
     SERVICE_URL=https://github.com/containous/traefik/releases/download
 ENV SERVICE_RELEASE=${SERVICE_URL}/${SERVICE_VERSION}/traefik_linux-amd64 \
     PATH=${PATH}:${SERVICE_HOME}/bin
@@ -26,4 +26,5 @@ EXPOSE 80
 EXPOSE 443
 
 WORKDIR $SERVICE_HOME
-ENTRYPOINT ["/opt/traefik/bin/traefik-service.sh","start"]
+ENTRYPOINT ["/opt/traefik/bin/traefik-service.sh"]
+CMD [ "traefik" ]
