@@ -20,6 +20,7 @@ TRAEFIK_ENTRYPOINTS_HTTPS="\
     [entryPoints.https.tls]"
        TRAEFIK_ENTRYPOINTS_HTTPS=$TRAEFIK_ENTRYPOINTS_HTTPS"
        compress = true
+       minVersion = "VersionTLS12"
       [[entryPoints.https.tls.certificates]]
       certFile = \"${TRAEFIK_SSL_PATH}/ssl.crt\"
       keyFile = \"${TRAEFIK_SSL_PATH}/ssl.key\"
